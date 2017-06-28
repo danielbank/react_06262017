@@ -1,25 +1,47 @@
 import 'bootstrap-loader';
 import '../scss/styles.scss';
 
-import React from 'react';
+import { React } from 'react';
+import { ReactDOM } from 'react-dom';
+import { QueryRenderer, graphql } from 'react-relay';
+import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 
-import ReactDOM from 'react-dom';
+const fetchQuery = (operation, variables) => {
+  return fetch('/graphql', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      query: operation.text,
+      variables,
+    }),
+  }).then(res => res.json());
+};
 
-import { Jumbotron } from 'react-bootstrap';
-
-class HelloWorld extends React.Component {
-
-  render() {
-    return <div className="row justify-content-center">
-      <div className="col-8 col-offset-2">
-        <Jumbotron className="center-block">
-          <h1>Welcome to Class!</h1>
-          <p>A starter project for creating React/Redux/GraphQL/Relay applications!</p>
-        </Jumbotron>
-      </div>
-    </div>;
-  }
-}
+const environment = new Environment({
+  network: Network.create(fetchQuery),
+  store: new Store(new RecordSource()),
+});
 
 ReactDOM.render(
-  <HelloWorld />, document.querySelector('main'));
+  <QueryRenderer
+    environment={environment}
+    query={graphql`
+      query appQuery {
+        viewer {
+          ...WidgetsApp_viewer
+        }
+      }
+    `}
+    variables={{}}
+    render={({ props }) => {
+      if (props) {
+        return <WidgetsApp viewer={props.viewer} />;
+      } else {
+        return <div>Loading...</div>;
+      }
+    }}
+  />,
+  document.querySelector('main'),
+);

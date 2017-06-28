@@ -14,7 +14,9 @@
     "webpack:once": "webpack",
     "rollup": "rollup -c -w",
     "rollup:once": "rollup -c",
-    "rest": "json-server --watch --port 3010 db.json"
+    "rest": "json-server --watch --port 3010 db.json",
+    "update-schema": "get-graphql-schema http://localhost:3000/graphql > schema.graphql",
+    "relay": "relay-compiler --src ./client/js/app.js --schema ./schema.graphql"
   },
   "repository": {
     "type": "git",
@@ -28,10 +30,13 @@
   "homepage": "https://github.com/training4developers/react_06262017#readme",
   "devDependencies": {
     "babel-jest": "20.0.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-runtime": "^6.23.0",
     "concurrently": "3.0.0",
     "enzyme": "2.9.1",
     "esformatter": "0.10.0",
     "esformatter-jsx": "8.0.0",
+    "get-graphql-schema": "2.0.0",
     "jest": "20.0.4",
     "jest-environment-node-debug": "2.0.0",
     "json-server": "0.10.1",

@@ -1,0 +1,98 @@
+# A type for cars
+type CarType {
+  id: Int
+  make: String
+  model: String
+  year: Int
+  color: String
+  price: Float
+}
+
+# Input type for inserts
+input InsertCarInputType {
+  make: String
+  model: String
+  year: Int
+  color: String
+  price: Float
+}
+
+# Input type for inserts
+input InsertWidgetInputType {
+  name: String
+  description: String
+  color: String
+  size: String
+  quantity: Int
+}
+
+type Mutation {
+  insertWidget(widget: InsertWidgetInputType): WidgetType
+  replaceWidget(widget: ReplaceWidgetInputType): WidgetType
+  deleteWidget(widgetId: Int): WidgetType
+  insertCar(car: InsertCarInputType): CarType
+  replaceCar(car: ReplaceCarInputType): CarType
+  deleteCar(carId: Int): CarType
+}
+
+# Query endpoint for my GraphQL server
+type Query {
+  # A list of widgets
+  widgets: [WidgetType]
+
+  # A single widgets
+  widget(
+    # The id of the widget to load
+    widgetId: Int
+  ): WidgetType
+
+  # A list of cars
+  cars: [CarType]
+
+  # A single cars
+  car(
+    # The id of the car to load
+    carId: Int
+  ): CarType
+}
+
+# Input type for replacements
+input ReplaceCarInputType {
+  make: String
+  model: String
+  year: Int
+  color: String
+  price: Float
+  id: Int
+}
+
+# Input type for replacements
+input ReplaceWidgetInputType {
+  name: String
+  description: String
+  color: String
+  size: String
+  quantity: Int
+  id: Int
+}
+
+# A type for the widget
+type WidgetType {
+  # id of the widget
+  id: Int
+
+  # name of the widget
+  name: String
+
+  # description of the widget
+  description: String
+
+  # color of the widget
+  color: String
+
+  # size of the widget
+  size: String
+
+  # quantity of the widget
+  quantity: Int
+}

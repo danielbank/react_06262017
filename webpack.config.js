@@ -76,10 +76,10 @@ const webpackConfig = {
               ],
               plugins: [
                 // verifies queries against GraphQL schema
-                'relay',
+                ['relay', { 'schema': 'schema.graphql' }],
                 // enable support for class properties
                 'transform-class-properties',
-              ]
+              ],
             }
           }
         ]
