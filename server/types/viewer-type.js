@@ -15,7 +15,7 @@ export const viewerType = new GraphQLObjectType({
 
   fields: () => ({
     id: globalIdField('Viewer'),
-    books: {
+    widgets: {
       type: widgetConnectionType,
       description: 'A list of widgets',
       args: connectionArgs,
@@ -26,6 +26,8 @@ export const viewerType = new GraphQLObjectType({
         // must return a promise to delay resolution until the async
         // operation has completed
         return widgetData.all().then(widgetsData => {
+
+          console.log(widgetsData);
 
           // create an array of widget models
           const widgets = widgetsData.map(w => Object.assign(new Widget(), w));
@@ -42,8 +44,6 @@ export const viewerType = new GraphQLObjectType({
           // connection type
           return connection;
         });
-
-        //return connectionFromPromisedArray(getBooks(baseUrl), args);
       }
     }
   }),

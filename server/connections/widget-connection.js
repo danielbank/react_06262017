@@ -18,6 +18,6 @@ export const { connectionType: widgetConnectionType, edgeType: widgetEdgeType } 
     }),
 
     // example of adding more data to the edge
-    edgeFields: () => ({}),
+    // edgeFields: () => ({}),
 
   });

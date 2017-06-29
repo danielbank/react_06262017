@@ -2,7 +2,7 @@ import http from 'http';
 import express from 'express';
 import graphqlHttp from 'express-graphql';
 
-import { schema } from './widgets-graphql/schema';
+import { schema } from './schema';
 
 const port = 3020;
 
@@ -13,7 +13,7 @@ app.use('/', graphqlHttp({
   pretty: true,
   graphiql: true,
   context: {
-    baseUrl: 'http://localhost:3000/api'
+    baseUrl: 'http://localhost:3010'
   }
 }));
 

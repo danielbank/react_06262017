@@ -7,7 +7,7 @@ import { viewerType } from './viewer-type';
 import { widgetEdgeType } from '../connections/widget-connection';
 import { insertWidgetInputType } from './widget-input-types';
 
-export const InsertWidgetMutation = mutationWithClientMutationId({
+export const insertWidgetMutationType = mutationWithClientMutationId({
 
   name: 'InsertWidgetType',
 
