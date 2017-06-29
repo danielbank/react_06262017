@@ -9,13 +9,13 @@ const fields = () => ({
 });
 
 export const insertWidgetInputType = new GraphQLInputObjectType({
-  name: 'InsertWidgetInputType',
+  name: 'InputInsertWidget',
   description: 'Input type for inserts',
   fields,
 });
 
 export const replaceWidgetInputType = new GraphQLInputObjectType({
-  name: 'ReplaceWidgetInputType',
+  name: 'InputReplaceWidget',
   description: 'Input type for replacements',
   fields: () => Object.assign(fields(), { id: { type: GraphQLInt } }),
 });
