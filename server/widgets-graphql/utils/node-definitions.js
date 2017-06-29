@@ -4,7 +4,7 @@ import { WidgetData } from '../models/widget-data';
 import { Viewer, Widget } from '../models/graphql-models';
 
 
-export const { nodeInterface, nodeField } = GR.nodeDefinitions(
+export const { nodeInterface, nodeField } = nodeDefinitions(
 
   globalId => {
     const { type, id } = fromGlobalId(globalId);
