@@ -5,18 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run rest\" \"npm run server\" \"npm run client\"",
-    "test": "jest --coverage",
-    "test:debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand --env jest-environment-node-debug",
     "clean": "rimraf server-dist client-dist",
-    "build": "npm run clean && npm run build-server && npm run build-client",
-    "build-server": "babel-node ./server/index.js --out-file ./server-dist/index.js",
-    "server": "babel-node ./server/index.js",
-    "server2": "concurrently \"nodemon --watch server-dist ./server-dist/index\"",
-    "client": "webpack-dev-server",
-    "build-client": "npm run relay && webpack",
+    "server": "concurrently \"babel server --out-dir server-dist --watch\" \"nodemon --watch server-dist ./server-dist/index\"",
+    "client": "concurrently \"npm run relay\" \"webpack-dev-server\"",
     "rest": "json-server --watch --port 3010 db.json",
-    "relay": "relay-compiler --src ./client/js/ --schema ./schema.graphql",
-    "update-schema": "babel-node ./scripts/update-schema"
+    "relay": "relay-compiler --watch --src ./client/js/ --schema ./schema.graphql"
   },
   "repository": {
     "type": "git",
