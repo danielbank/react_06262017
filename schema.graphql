@@ -1,85 +1,68 @@
-# A type for cars
-type CarType {
-  id: Int
-  make: String
-  model: String
-  year: Int
-  color: String
-  price: Float
-}
-
 # Input type for inserts
-input InsertCarInputType {
-  make: String
-  model: String
-  year: Int
-  color: String
-  price: Float
-}
-
-# Input type for inserts
-input InsertWidgetInputType {
+input InputInsertWidget {
   name: String
   description: String
   color: String
   size: String
   quantity: Int
+}
+
+input InsertWidgetTypeInput {
+  widget: InputInsertWidget
+  clientMutationId: String
+}
+
+type InsertWidgetTypePayload {
+  viewer: Viewer
+  widgetEdge: WidgetEdge
+  clientMutationId: String
 }
 
 type Mutation {
-  insertWidget(widget: InsertWidgetInputType): WidgetType
-  replaceWidget(widget: ReplaceWidgetInputType): WidgetType
-  deleteWidget(widgetId: Int): WidgetType
-  insertCar(car: InsertCarInputType): CarType
-  replaceCar(car: ReplaceCarInputType): CarType
-  deleteCar(carId: Int): CarType
+  insertWidget(input: InsertWidgetTypeInput!): InsertWidgetTypePayload
 }
 
-# Query endpoint for my GraphQL server
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
 type Query {
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+  viewer: Viewer
+}
+
+type Viewer implements Node {
+  # The ID of an object
+  id: ID!
+
   # A list of widgets
-  widgets: [WidgetType]
-
-  # A single widgets
-  widget(
-    # The id of the widget to load
-    widgetId: Int
-  ): WidgetType
-
-  # A list of cars
-  cars: [CarType]
-
-  # A single cars
-  car(
-    # The id of the car to load
-    carId: Int
-  ): CarType
+  widgets(after: String, first: Int, before: String, last: Int): WidgetConnection
 }
 
-# Input type for replacements
-input ReplaceCarInputType {
-  make: String
-  model: String
-  year: Int
-  color: String
-  price: Float
-  id: Int
-}
-
-# Input type for replacements
-input ReplaceWidgetInputType {
-  name: String
-  description: String
-  color: String
-  size: String
-  quantity: Int
-  id: Int
-}
-
-# A type for the widget
-type WidgetType {
-  # id of the widget
-  id: Int
+type Widget implements Node {
+  # The ID of an object
+  id: ID!
 
   # name of the widget
   name: String
@@ -95,4 +78,23 @@ type WidgetType {
 
   # quantity of the widget
   quantity: Int
+}
+
+# A connection to a list of items.
+type WidgetConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [WidgetEdge]
+  totalCount: Int
+}
+
+# An edge in a connection.
+type WidgetEdge {
+  # The item at the end of the edge
+  node: Widget
+
+  # A cursor for use in pagination
+  cursor: String!
 }

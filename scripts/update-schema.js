@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { schema } from '../server/widgets-graphql/schema';
+import { schema } from '../server/schema';
 import { printSchema } from 'graphql';
 
 const schemaPath = path.resolve(__dirname, '../schema.graphql');

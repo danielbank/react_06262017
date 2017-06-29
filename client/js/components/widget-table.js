@@ -5,11 +5,15 @@ export class WidgetTable extends React.Component {
 
   static propTypes = {
     widgets: PropTypes.array,
-  }
+  };
+
+  static defaultProps = {
+    widgets: [],
+  };
 
   render() {
 
-    return <table>
+    return <table className="table table-striped">
       <thead>
         <tr>
           <th>Name</th>
